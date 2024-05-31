@@ -2,11 +2,13 @@
   "name": "moji-admin-nextjs",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.1.4",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "prepare": "pnpm pre-commit install"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
@@ -29,6 +31,7 @@
     "globals": "^15.3.0",
     "pnpm": "^9.1.4",
     "postcss": "^8",
+    "pre-commit": "^1.2.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "typescript-eslint": "^7.11.0"
