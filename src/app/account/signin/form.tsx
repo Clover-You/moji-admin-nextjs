@@ -15,6 +15,7 @@ import { useAlertDialog } from "@/hook"
 import React from "react"
 import { Icons } from "@/components/icons"
 import { Optional } from "@/components/utils"
+import Link from "next/link"
 
 interface LoginForm {
   username: string
@@ -91,17 +92,24 @@ export function UserForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="items-top flex space-x-2">
-                  <Checkbox id="remember" checked={field.value} onCheckedChange={field.onChange} />
+                <div className="items-top flex justify-between leading-none">
+                  <div className="items-top flex space-x-2">
+                    <Checkbox id="remember" checked={field.value}
+                      onCheckedChange={field.onChange} />
 
-                  <div className="grid gap-1.5 leading-none">
-                    <label
-                      htmlFor="remember"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
-                      peer-disabled:opacity-70"
-                    >
-                      Remember
-                    </label>
+                    <div className="grid gap-1.5">
+                      <label
+                        htmlFor="remember"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
+                          peer-disabled:opacity-70"
+                      >
+                        Remember
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="items-top flex space-x-2">
+                    <Link href={"/account/forget"}>forget</Link>
                   </div>
                 </div>
               </FormControl>
