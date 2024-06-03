@@ -16,3 +16,11 @@ repos:
         entry: pnpm eslint --fix
         language: node
         files: \.(ts|js|tsx|jsx)$
+
+      - id: Vitest
+        name: vitest
+        description: Run test unit of all
+        entry: pnpm test -- --run
+        language: node
+        files: \.(ts|js)$
+        pass_filenames: false

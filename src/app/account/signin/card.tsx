@@ -1,17 +1,12 @@
-import { Metadata } from "next"
-
-import { Card } from "@/components/ui"
-import { UserForm } from "./form"
-import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+"use client"
 import Link from "next/link"
 
-export const metadata: Metadata = {
-  title: "登录",
-}
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui"
+import { UserForm } from "./form"
 
-export default function Page() {
+export default function SigninCard() {
   return <>
-    <Card className="relative w-auto rounded-xl">
+    <Card className="relative w-auto rounded-xl mt-[20vh]">
       <CardHeader>
         <CardTitle className="text-2xl">
           Login

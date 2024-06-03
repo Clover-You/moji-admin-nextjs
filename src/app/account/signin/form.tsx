@@ -1,11 +1,13 @@
 "use client"
 
+import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
+
 import {
   Button,
   Checkbox,
   Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input,
 } from "@/components/ui"
-import { useForm } from "react-hook-form"
 
 interface LoginForm {
   username?: string
@@ -19,6 +21,8 @@ export function UserForm() {
   function handleSubmit(formdata: LoginForm) {
     console.log(formdata)
   }
+
+  const touter = useRouter()
 
   return <Form {...form}>
     <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
@@ -76,8 +80,7 @@ export function UserForm() {
         )}
       />
 
-
-      <Button className="w-full">Signin</Button>
+      <Button className="w-full" onClick={() => touter.replace("/")}>Signin</Button>
     </form>
   </Form>
 }
