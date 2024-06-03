@@ -29,13 +29,15 @@ interface OptionsRaw extends DialogProps { }
 
 type Options = Omit<OptionsRaw, "open" | "onOpenChange" | "onOk" | "onCancel">
 
-export function useAlertDialog(options?: Options) {
+export function useAlertDialog(props?: Options) {
   const [open, setOpenState] = React.useState(false)
+  const [options, setOptions] = React.useState(props)
 
   const resolveCache = React.useRef<(state: boolean) => void>()
 
   function useAPI() {
-    function show() {
+    function show(ops?: Options) {
+      setOptions({ ...props, ...ops })
       setOpenState(true)
 
       if (resolveCache.current) return Promise.resolve(false)
