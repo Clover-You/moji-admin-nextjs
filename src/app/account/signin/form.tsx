@@ -34,10 +34,9 @@ export function UserForm() {
   const [loading, setLoad] = React.useState(false)
 
   async function handleSubmit(formdata: LoginForm) {
-    console.log(formdata)
-
     try {
       setLoad(true)
+
       const response = await userLogin(formdata)
       const { code, message } = response.data
       if (code !== Status.Success) return dialogAPI.show({ children: message })
@@ -46,6 +45,7 @@ export function UserForm() {
     } catch (err) {
       let errMsg = "unknown error"
       if (err instanceof Error) errMsg = err.message
+
       dialogAPI.show({ children: errMsg })
     } finally {
       setLoad(false)
