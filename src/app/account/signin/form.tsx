@@ -23,12 +23,19 @@ interface LoginForm {
 }
 
 export function UserForm() {
-  const form = useForm<LoginForm>()
+  const form = useForm<LoginForm>({
+    defaultValues: { username: "clover", password: "admin", remember: false },
+  })
+
   const [alertContextProvider, dialogAPI] = useAlertDialog()
+
   const touter = useRouter()
+
   const [loading, setLoad] = React.useState(false)
 
   async function handleSubmit(formdata: LoginForm) {
+    console.log(formdata)
+
     try {
       setLoad(true)
       const response = await userLogin(formdata)
@@ -46,70 +53,75 @@ export function UserForm() {
   }
 
 
-  return <Form {...form}>
-    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
-      <FormField
-        name="username"
-        render={({ field }) => <>
-          <FormItem>
-            <FormLabel>Username</FormLabel>
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <FormField
+          name="username"
+          render={({ field }) => <>
+            <FormItem>
+              <FormLabel>Username</FormLabel>
 
-            <FormControl>
-              <Input placeholder="Please input username" {...field} disabled={loading} />
-            </FormControl>
+              <FormControl>
+                <Input placeholder="Please input username" {...field} disabled={loading} />
+              </FormControl>
 
-            <FormMessage />
-          </FormItem>
-        </>}
-      />
-
-      <FormField
-        name="passowrd"
-        render={({ field }) => <>
-          <FormItem>
-            <FormLabel>Password</FormLabel>
-
-            <FormControl>
-              <Input placeholder="Please input password"  {...field} disabled={loading} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        </>}
-      />
-
-      <FormField
-        name="remember"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <div className="items-top flex space-x-2">
-                <Checkbox id="remember" checked={field.value} onCheckedChange={field.onChange} />
-
-                <div className="grid gap-1.5 leading-none">
-                  <label
-                    htmlFor="remember"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
-                      peer-disabled:opacity-70"
-                  >
-                    Remember
-                  </label>
-                </div>
-              </div>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <Button className="w-full" disabled={loading}>
-        <Optional
-          if={loading}
-          ifCase={<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+              <FormMessage />
+            </FormItem>
+          </>}
         />
-        Signin
-      </Button>
-    </form>
-    {alertContextProvider}
-  </Form>
+
+        <FormField
+          name="password"
+          render={({ field }) => <>
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+
+              <FormControl>
+                <Input placeholder="Please input password"  {...field} disabled={loading} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          </>}
+        />
+
+        <FormField
+          name="remember"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <div className="items-top flex space-x-2">
+                  <Checkbox id="remember" checked={field.value} onCheckedChange={field.onChange} />
+
+                  <div className="grid gap-1.5 leading-none">
+                    <label
+                      htmlFor="remember"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
+                      peer-disabled:opacity-70"
+                    >
+                      Remember
+                    </label>
+                  </div>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button className="w-full" disabled={loading}>
+          <Optional
+            if={loading}
+            ifCase={<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
+          />
+          Signin
+        </Button>
+      </form>
+
+      {alertContextProvider}
+
+    </Form>
+
+  )
 }
