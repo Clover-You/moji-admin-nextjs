@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest",
-    "prepare": "pnpm pre-commit install"
+    "prepare": "pnpm -v & pnpm pre-commit install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
