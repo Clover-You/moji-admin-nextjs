@@ -13,9 +13,16 @@ import {
   AvatarFallback,
 } from "@/components/ui"
 import { useAlertDialog } from "@/hook"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 
-export function HeaderAvatar() {
+export interface HeaderAvatarProps {
+  username: string
+  avatar?: string
+  email?: string
+}
+
+export function HeaderAvatar(props: HeaderAvatarProps) {
   const router = useRouter()
 
   const [alertContext, dialogApi] = useAlertDialog({
@@ -33,30 +40,27 @@ export function HeaderAvatar() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarImage src={props.avatar ?? "https://github.com/shadcn.png"} alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel className="flex flex-col">
+          <span>{props.username}</span>
+          <span className="text-[0.8rem] text-muted-foreground">{props.email}</span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <Link href={"/profile"}>
+            <DropdownMenuItem>
+              Profile
+              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuItem>
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard shortcuts
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

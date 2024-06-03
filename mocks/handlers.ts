@@ -1,6 +1,6 @@
-import { LoginReq } from "@/api/user"
+import { LoginReq, UserRes } from "@/api/user"
 import { createSuccRes, createFailRes } from "@/api/utils"
-import { http, graphql, HttpResponse } from "msw"
+import { http, HttpResponse } from "msw"
 
 function sleep(duration: number) {
   return new Promise(res => setTimeout(res, duration))
@@ -18,24 +18,21 @@ export const handlers = [
 
     return HttpResponse.json(createSuccRes())
   }),
-  graphql.query("ListMovies", () => {
-    return HttpResponse.json({
-      data: {
-        movies: [
-          {
-            id: "6c6dba95-e027-4fe2-acab-e8c155a7f0ff",
-            title: "The Lord of The Rings",
-          },
-          {
-            id: "a2ae7712-75a7-47bb-82a9-8ed668e00fe3",
-            title: "The Matrix",
-          },
-          {
-            id: "916fa462-3903-4656-9e76-3f182b37c56f",
-            title: "Star Wars: The Empire Strikes Back",
-          },
-        ],
+  http.get("/api/user", () => {
+    return HttpResponse.json(createSuccRes<UserRes>({
+      username: "Clover You",
+      sig: "A flower may blossom again, but a person cannot get young again.",
+      uid: "0001",
+      phone: "18933799999",
+      email: "cloveryou02@gmail.com",
+      avatar: "https://0.gravatar.com/avatar/" +
+        "bb935245d9ce4b3868849718160085f8bc5e62c0231177a24cca99bc99e27fe9?size=256",
+      address: "番禺区桥南街道 10086 号",
+      position: {
+        country: "China",
+        province: { key: "0010086", label: "广东省" },
+        city: { key: "0234532", label: "广州市" },
       },
-    })
+    }))
   }),
 ]
