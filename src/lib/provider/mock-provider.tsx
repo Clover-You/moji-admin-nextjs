@@ -15,7 +15,7 @@ export function MockProvider({
        * this module and runs it during the build
        * in Node.js. This makes "msw/browser" import to fail.
        */
-      const { worker } = await import("../../mocks/browser")
+      const { worker } = await import("../../../mocks/browser")
 
       await worker.start()
       enableMocking(true)

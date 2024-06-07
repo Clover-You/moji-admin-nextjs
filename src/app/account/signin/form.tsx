@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 
@@ -10,12 +12,13 @@ import {
 } from "@/components/ui"
 
 import { userLogin } from "@/api/user"
-import { Status } from "@/api/request"
+import { AxiosRes, Status } from "@/api/request"
 import { useAlertDialog } from "@/hook"
-import React from "react"
 import { Icons } from "@/components/icons"
 import { Optional } from "@/components/utils"
-import Link from "next/link"
+import { useAppDispatch } from "@/hook/redux"
+import { loadUser } from "@/lib/store/user"
+import { isRespResult } from "@/api/utils"
 
 interface LoginForm {
   username: string
@@ -34,6 +37,24 @@ export function UserForm() {
 
   const [loading, setLoad] = React.useState(false)
 
+  const useDispatch = useAppDispatch()
+
+  async function doLoadUser() {
+    try {
+      const response = await useDispatch(loadUser()).unwrap()
+      return response
+    } catch (err) {
+      if (err instanceof Object) {
+        const error = err as AxiosRes
+        isRespResult(error.data) && dialogAPI.show({ children: error.data.message })
+      }
+
+      if (err instanceof Error) throw err
+
+      return false
+    }
+  }
+
   async function handleSubmit(formdata: LoginForm) {
     try {
       setLoad(true)
@@ -41,6 +62,8 @@ export function UserForm() {
       const response = await userLogin(formdata)
       const { code, message } = response.data
       if (code !== Status.Success) return dialogAPI.show({ children: message })
+
+      if (!await doLoadUser()) return
 
       touter.replace("/")
     } catch (err) {
@@ -52,7 +75,6 @@ export function UserForm() {
       setLoad(false)
     }
   }
-
 
   return (
     <Form {...form}>

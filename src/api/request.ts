@@ -9,7 +9,7 @@ export interface R<T = never> {
 export type AxiosRes<T = never> = AxiosResponse<R<T>>
 
 export enum Status {
-  Success = "200"
+  Success = "200",
 }
 
 export const request = Axios.create({

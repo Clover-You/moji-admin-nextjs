@@ -1,34 +1,18 @@
 "use client"
+
 import React from "react"
 
 import { cn } from "@/lib/utils"
 
 import { NavigationMenuLink } from "@/components/ui"
 import { HeaderAvatar } from "./header-avatar"
-import { UserRes, getUser } from "@/api/user"
-import { useAlertDialog } from "@/hook"
-import { Status } from "@/api/request"
+import { useAppSelector } from "@/hook/redux"
 
 export function Header() {
-  const [dialogContext, dialogAPI] = useAlertDialog()
 
-  const [userData, setUser] = React.useState<UserRes>()
-
-  async function loadUser() {
-    const response = await getUser()
-    const { data, code, message } = response.data
-    if (code !== Status.Success) return dialogAPI.show({ children: message })
-
-    setUser(data)
-  }
-
-  React.useEffect(() => {
-    loadUser()
-  }, [])
+  const userData = useAppSelector(state => state.user.data)
 
   return <>
-    {dialogContext}
-
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95
         backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">

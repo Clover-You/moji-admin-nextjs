@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
-import { MockProvider } from "./mock-provider"
 
 import "./globals.css"
+
+import { Provider } from "@/lib/provider"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <MockProvider>
-          {children}
-        </MockProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   )

@@ -17,7 +17,9 @@ export const signin = http.post<never, LoginReq>("/api/signin", async ({ request
   return HttpResponse.json(createSuccRes())
 })
 
-export const getUser = http.get("/api/user", () => {
+export const getUser = http.get("/api/user", async () => {
+  await sleep(2000)
+
   return HttpResponse.json(createSuccRes<UserRes>({
     username: "Clover You",
     sig: "A flower may blossom again, but a person cannot get young again.",

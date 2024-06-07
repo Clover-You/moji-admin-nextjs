@@ -1,4 +1,8 @@
 "use client"
+
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +17,6 @@ import {
   AvatarFallback,
 } from "@/components/ui"
 import { useAlertDialog } from "@/hook"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 export interface HeaderAvatarProps {
   username: string
