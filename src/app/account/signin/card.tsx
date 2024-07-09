@@ -13,7 +13,7 @@ export default function SigninCard() {
         </CardTitle>
 
         <CardDescription>
-          Don&apos;t have an account yet? <Link href="/account/signup">Goto signup</Link>
+          Don&apos;t have an account yet? <Link href="/account/signup">Go to signup</Link>
         </CardDescription>
       </CardHeader>
 
