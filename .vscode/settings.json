@@ -22,4 +22,5 @@
   // it will cause the correct use of tailwindcss(@tailwind) to appear a warning. so ignore it
   "css.lint.unknownAtRules": "ignore",
   "eslint.rules.customizations": [],
+  "arrayIndexInlay.enabled": true,
 }
