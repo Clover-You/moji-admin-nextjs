@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { NavigationMenuLink } from "@/components/ui"
 import { HeaderAvatar } from "./header-avatar"
 import { useAppSelector } from "@/hook/redux"
+import { ModeToggle } from "./mode-toggle"
 
 export function Header() {
 
@@ -18,7 +19,8 @@ export function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div></div>
 
-        <div className="flex">
+        <div className="flex gap-4">
+          <ModeToggle />
           <HeaderAvatar username={userData?.username ?? "Username"} avatar={userData?.avatar}
             email={userData?.email} />
         </div>
