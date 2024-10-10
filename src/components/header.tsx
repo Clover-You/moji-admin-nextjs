@@ -19,8 +19,11 @@ export function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
         <div></div>
 
-        <div className="flex gap-4">
+        <div className="flex">
           <ModeToggle />
+
+          <div className="h-1 w-2"></div>
+
           <HeaderAvatar username={userData?.username ?? "Username"} avatar={userData?.avatar}
             email={userData?.email} />
         </div>
