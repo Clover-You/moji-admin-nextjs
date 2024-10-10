@@ -1,12 +1,12 @@
 // @ts-check
-
-import process from "node:process"
+import process from 'node:process'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: process.env.NODE_ENV !== "development" ? "export" : "standalone",
+  output: process.env.NODE_ENV !== 'development' ? 'export' : 'standalone',
   experimental: {
     instrumentationHook: true,
+    reactCompiler: true,
   },
   webpack(config, { isServer }) {
     /**
@@ -16,15 +16,15 @@ const nextConfig = {
      */
     if (isServer) {
       if (Array.isArray(config.resolve.alias)) {
-        config.resolve.alias.push({ name: "msw/browser", alias: false })
+        config.resolve.alias.push({ name: 'msw/browser', alias: false })
       } else {
-        config.resolve.alias["msw/browser"] = false
+        config.resolve.alias['msw/browser'] = false
       }
     } else {
       if (Array.isArray(config.resolve.alias)) {
-        config.resolve.alias.push({ name: "msw/node", alias: false })
+        config.resolve.alias.push({ name: 'msw/node', alias: false })
       } else {
-        config.resolve.alias["msw/node"] = false
+        config.resolve.alias['msw/node'] = false
       }
     }
 

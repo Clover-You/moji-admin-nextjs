@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import React from "react"
-import Link from "next/link"
-import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
+import React from 'react'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 import {
   Button,
   Checkbox,
   Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input,
-} from "@/components/ui"
+} from '@/components/ui'
 
-import { userLogin } from "@/api/user"
-import { AxiosRes, Status } from "@/api/request"
-import { useAlertDialog } from "@/hook"
-import { Icons } from "@/components/icons"
-import { Optional } from "@/components/utils"
-import { useAppDispatch } from "@/hook/redux"
-import { loadUser } from "@/lib/store/user"
-import { isRespResult } from "@/api/utils"
+import { userLogin } from '@/api/user'
+import { AxiosRes, Status } from '@/api/request'
+import { useAlertDialog } from '@/hook'
+import { Icons } from '@/components/icons'
+import { Optional } from '@/components/utils'
+import { useAppDispatch } from '@/hook/redux'
+import { loadUser } from '@/lib/store/user'
+import { isRespResult } from '@/api/utils'
 
 interface LoginForm {
   username: string
@@ -28,7 +28,7 @@ interface LoginForm {
 
 export function UserForm() {
   const form = useForm<LoginForm>({
-    defaultValues: { username: "clover", password: "admin", remember: false },
+    defaultValues: { username: 'clover', password: 'admin', remember: false },
   })
 
   const [alertContextProvider, dialogAPI] = useAlertDialog()
@@ -46,7 +46,8 @@ export function UserForm() {
     } catch (err) {
       if (err instanceof Object) {
         const error = err as AxiosRes
-        isRespResult(error.data) && dialogAPI.show({ children: error.data.message })
+        if (isRespResult(error.data))
+          dialogAPI.show({ children: error.data.message })
       }
 
       if (err instanceof Error) throw err
@@ -65,9 +66,9 @@ export function UserForm() {
 
       if (!await doLoadUser()) return
 
-      touter.replace("/")
+      touter.replace('/')
     } catch (err) {
-      let errMsg = "unknown error"
+      let errMsg = 'unknown error'
       if (err instanceof Error) errMsg = err.message
 
       dialogAPI.show({ children: errMsg })
@@ -131,7 +132,7 @@ export function UserForm() {
                   </div>
 
                   <div className="items-top flex space-x-2">
-                    <Link href={"/account/forget"}>forget</Link>
+                    <Link href={'/account/forget'}>forget</Link>
                   </div>
                 </div>
               </FormControl>

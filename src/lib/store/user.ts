@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { getUser, type UserRes } from "@/api/user"
-import { Status } from "@/api/request"
+import { getUser, type UserRes } from '@/api/user'
+import { Status } from '@/api/request'
 
-const store_name = "user_store"
+const store_name = 'user_store'
 
 export interface UserState {
   data?: UserRes
@@ -22,7 +22,7 @@ const user = createSlice({
   },
 })
 
-export const loadUser = createAsyncThunk("user/loadUser", async (_: void, thunkAPI) => {
+export const loadUser = createAsyncThunk('user/loadUser', async (_: void, thunkAPI) => {
   const response = await getUser()
   const { data, code } = response.data
   if (code === Status.Success) return data

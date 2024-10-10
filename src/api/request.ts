@@ -1,4 +1,4 @@
-import Axios, { AxiosResponse } from "axios"
+import Axios, { AxiosResponse } from 'axios'
 
 export interface R<T = never> {
   data?: T
@@ -9,9 +9,9 @@ export interface R<T = never> {
 export type AxiosRes<T = never> = AxiosResponse<R<T>>
 
 export enum Status {
-  Success = "200",
+  Success = '200',
 }
 
 export const request = Axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
 })

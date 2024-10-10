@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import React from "react"
+import React from 'react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
-import { NavigationMenuLink } from "@/components/ui"
-import { HeaderAvatar } from "./header-avatar"
-import { useAppSelector } from "@/hook/redux"
-import { ModeToggle } from "./mode-toggle"
+import { NavigationMenuLink } from '@/components/ui'
+import { HeaderAvatar } from './header-avatar'
+import { useAppSelector } from '@/hook/redux'
+import { ModeToggle } from './mode-toggle'
 
 export function Header() {
 
@@ -24,7 +24,7 @@ export function Header() {
 
           <div className="h-1 w-2"></div>
 
-          <HeaderAvatar username={userData?.username ?? "Username"} avatar={userData?.avatar}
+          <HeaderAvatar username={userData?.username ?? 'Username'} avatar={userData?.avatar}
             email={userData?.email} />
         </div>
       </div>
@@ -33,8 +33,8 @@ export function Header() {
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -59,4 +59,4 @@ const ListItem = React.forwardRef<
   )
 })
 
-ListItem.displayName = "ListItem"
+ListItem.displayName = 'ListItem'

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import {
   DropdownMenu,
@@ -15,8 +15,8 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/components/ui"
-import { useAlertDialog } from "@/hook"
+} from '@/components/ui'
+import { useAlertDialog } from '@/hook'
 
 export interface HeaderAvatarProps {
   username: string
@@ -28,13 +28,13 @@ export function HeaderAvatar(props: HeaderAvatarProps) {
   const router = useRouter()
 
   const [alertContext, dialogApi] = useAlertDialog({
-    children: "Are you sure you whant to log out?",
+    children: 'Are you sure you whant to log out?',
   })
 
   async function logout() {
     const state = await dialogApi.show()
     if (!state) return
-    router.replace("/account/signin")
+    router.replace('/account/signin')
   }
 
   return <>
@@ -42,7 +42,7 @@ export function HeaderAvatar(props: HeaderAvatarProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src={props.avatar ?? "https://github.com/shadcn.png"} alt="@shadcn" />
+          <AvatarImage src={props.avatar ?? 'https://github.com/shadcn.png'} alt="@shadcn" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -54,7 +54,7 @@ export function HeaderAvatar(props: HeaderAvatarProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={"/profile"}>
+          <Link href={'/profile'}>
             <DropdownMenuItem>
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

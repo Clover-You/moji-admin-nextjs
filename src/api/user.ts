@@ -1,4 +1,4 @@
-import { R, request } from "./request"
+import { R, request } from './request'
 
 export interface Geographical {
   label: string
@@ -23,7 +23,7 @@ export interface UserRes {
 }
 
 export function getUser() {
-  return request.get<R<UserRes>>("/user")
+  return request.get<R<UserRes>>('/user')
 }
 
 export interface LoginReq {
@@ -33,5 +33,5 @@ export interface LoginReq {
 }
 
 export function userLogin(data: LoginReq) {
-  return request.post<R>("/signin", data)
+  return request.post<R>('/signin', data)
 }

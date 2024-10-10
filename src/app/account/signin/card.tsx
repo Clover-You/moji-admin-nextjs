@@ -1,8 +1,8 @@
-"use client"
-import Link from "next/link"
+'use client'
+import Link from 'next/link'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui"
-import { UserForm } from "./form"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui'
+import { UserForm } from './form'
 
 export default function SigninCard() {
   return <>

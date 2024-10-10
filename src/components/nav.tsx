@@ -1,14 +1,14 @@
-import React from "react"
+import React from 'react'
 import Link from 'next/link'
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "./ui"
+import { cn } from '@/lib/utils'
+import { buttonVariants } from './ui'
 
 export interface NavItemProps {
   title: string
   icon?: React.ReactNode
   label?: string
-  variant: "default" | "ghost"
+  variant: 'default' | 'ghost'
 }
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,15 +17,20 @@ interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Nav(props: NavProps) {
   return (
-    <nav className={cn("pn-12", props.className)}>
+    <nav className={cn('pn-12', props.className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <div className="space-y-1">
-            {props.items?.map((item) => (
-              <Link draggable={false} href="#" className={cn(
-                buttonVariants({ size: 'sm', variant: 'ghost' }),
-                'w-full justify-start'
-              )}>
+            {props.items?.map((item, index) => (
+              <Link
+                key={index}
+                draggable={false}
+                href="#"
+                className={cn(
+                  buttonVariants({ size: 'sm', variant: 'ghost' }),
+                  'w-full justify-start',
+                )}
+              >
                 {item.icon}
                 {item.title}
                 {item.label && (

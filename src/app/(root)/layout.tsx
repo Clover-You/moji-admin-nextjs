@@ -1,6 +1,6 @@
-"use client"
-import { Header, Nav, NavItemProps } from "@/components"
-import React from "react"
+'use client'
+import { Header, Nav, NavItemProps } from '@/components'
+import React from 'react'
 
 const items = [
   {
@@ -18,8 +18,8 @@ const items = [
       <rect width="7" height="7" x="14" y="3" rx="1" />
       <rect width="7" height="7" x="14" y="14" rx="1" />
       <rect width="7" height="7" x="3" y="14" rx="1" />
-    </svg>
-  }
+    </svg>,
+  },
 ] satisfies NavItemProps[]
 
 export default function RootLayout({

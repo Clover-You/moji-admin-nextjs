@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore } from '@reduxjs/toolkit'
 
-import user from "./user"
+import user from './user'
 
 export const store = configureStore({
   reducer: { user },

@@ -1,5 +1,5 @@
-"use client"
-import React from "react"
+'use client'
+import React from 'react'
 
 import {
   AlertDialog,
@@ -10,12 +10,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui"
-import { Optional } from "@/components/utils"
+} from '@/components/ui'
+import { Optional } from '@/components/utils'
 
-import * as strings from "@/utils/strings"
+import * as strings from '@/utils/strings'
 
-interface DialogProps extends React.PropsWithChildren {
+interface DialogProps {
   open?: boolean
   title?: string
   okText?: React.ReactNode
@@ -23,11 +23,12 @@ interface DialogProps extends React.PropsWithChildren {
   onCancel?: () => void
   cancelText?: React.ReactNode
   onOpenChange?: (open: boolean) => void
+  children?: React.ReactNode
 }
 
 interface OptionsRaw extends DialogProps { }
 
-type Options = Omit<OptionsRaw, "open" | "onOpenChange" | "onOk" | "onCancel">
+type Options = Omit<OptionsRaw, 'open' | 'onOpenChange' | 'onOk' | 'onCancel'>
 
 export function useAlertDialog(props?: Options) {
   const [open, setOpenState] = React.useState(false)
@@ -35,19 +36,15 @@ export function useAlertDialog(props?: Options) {
 
   const resolveCache = React.useRef<(state: boolean) => void>()
 
-  function useAPI() {
-    function show(ops?: Options) {
-      setOptions({ ...props, ...ops })
-      setOpenState(true)
+  function show(ops?: Options) {
+    setOptions({ ...props, ...ops })
+    setOpenState(true)
 
-      if (resolveCache.current) return Promise.resolve(false)
+    if (resolveCache.current) return Promise.resolve(false)
 
-      return new Promise<boolean>(resolve => {
-        resolveCache.current = resolve
-      })
-    }
-
-    return { show }
+    return new Promise<boolean>(resolve => {
+      resolveCache.current = resolve
+    })
   }
 
   function onOpenChange(open: boolean) {
@@ -68,7 +65,9 @@ export function useAlertDialog(props?: Options) {
     resolveCache.current = undefined
   }
 
+
   return [
+    // eslint-disable-next-line react-compiler/react-compiler
     dialog({
       open,
       title: options?.title,
@@ -77,8 +76,10 @@ export function useAlertDialog(props?: Options) {
       onOK: okHandle,
       onCancel: cancelHandle,
     }),
-    useAPI(),
-  ] as [React.ReactNode, ReturnType<typeof useAPI>]
+    {
+      show,
+    },
+  ]
 }
 
 function dialog(props: DialogProps) {

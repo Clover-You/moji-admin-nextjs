@@ -1,7 +1,7 @@
-import path from "node:path"
-import process from "node:process"
+import path from 'node:path'
+import process from 'node:process'
 
-const buildEslintCommand = createCommand("eslint --fix ", "")
+const buildEslintCommand = createCommand('eslint --fix ', '')
 
 function createCommand(prefix, join) {
   return (filenames) =>
@@ -9,5 +9,5 @@ function createCommand(prefix, join) {
 }
 
 export default {
-  "*.{js,jsx,ts,tsx,vue}": [buildEslintCommand],
+  '*.{js,jsx,ts,tsx,vue}': [buildEslintCommand],
 }
