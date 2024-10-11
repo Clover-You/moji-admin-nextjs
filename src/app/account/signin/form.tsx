@@ -13,7 +13,7 @@ import {
 
 import { userLogin } from '@/api/user'
 import { AxiosRes, Status } from '@/api/request'
-import { useAlertDialog } from '@/hook'
+import { useDialog } from '@/hook'
 import { Icons } from '@/components/icons'
 import { Optional } from '@/components/utils'
 import { useAppDispatch } from '@/hook/redux'
@@ -30,8 +30,7 @@ export function UserForm() {
   const form = useForm<LoginForm>({
     defaultValues: { username: 'clover', password: 'admin', remember: false },
   })
-
-  const [alertContextProvider, dialogAPI] = useAlertDialog()
+  const [dialog, dialogHolder] = useDialog()
 
   const touter = useRouter()
 
@@ -47,7 +46,7 @@ export function UserForm() {
       if (err instanceof Object) {
         const error = err as AxiosRes
         if (isRespResult(error.data))
-          dialogAPI.show({ children: error.data.message })
+          dialog.error({ description: error.data.message })
       }
 
       if (err instanceof Error) throw err
@@ -62,7 +61,10 @@ export function UserForm() {
 
       const response = await userLogin(formdata)
       const { code, message } = response.data
-      if (code !== Status.Success) return dialogAPI.show({ children: message })
+      if (code !== Status.Success) {
+        dialog.error({ description: message })
+        return
+      }
 
       if (!await doLoadUser()) return
 
@@ -71,43 +73,39 @@ export function UserForm() {
       let errMsg = 'unknown error'
       if (err instanceof Error) errMsg = err.message
 
-      dialogAPI.show({ children: errMsg })
+      dialog.error({ description: errMsg })
     } finally {
       setLoad(false)
     }
   }
 
-  return (
+  return <>
+    {dialogHolder}
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <FormField
           name="username"
-          render={({ field }) => <>
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
-
               <FormControl>
                 <Input placeholder="Please input username" {...field} disabled={loading} />
               </FormControl>
-
-              <FormMessage />
             </FormItem>
-          </>}
+          )}
         />
 
         <FormField
           name="password"
-          render={({ field }) => <>
+          render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-
               <FormControl>
                 <Input placeholder="Please input password"  {...field} disabled={loading} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
-          </>}
+          )}
         />
 
         <FormField
@@ -123,8 +121,7 @@ export function UserForm() {
                     <div className="grid gap-1.5">
                       <label
                         htmlFor="remember"
-                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
-                          peer-disabled:opacity-70"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowedpeer-disabled:opacity-70"
                       >
                         Remember
                       </label>
@@ -149,10 +146,8 @@ export function UserForm() {
           Signin
         </Button>
       </form>
-
-      {alertContextProvider}
-
     </Form>
-
-  )
+  </>
 }
+
+

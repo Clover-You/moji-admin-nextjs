@@ -16,7 +16,7 @@ import {
   AvatarImage,
   AvatarFallback,
 } from '@/components/ui'
-import { useAlertDialog } from '@/hook'
+import { useDialog } from '@/hook'
 
 export interface HeaderAvatarProps {
   username: string
@@ -27,18 +27,21 @@ export interface HeaderAvatarProps {
 export function HeaderAvatar(props: HeaderAvatarProps) {
   const router = useRouter()
 
-  const [alertContext, dialogApi] = useAlertDialog({
-    children: 'Are you sure you whant to log out?',
-  })
+  const [dialog, dialogContextHolder] = useDialog()
 
   async function logout() {
-    const state = await dialogApi.show()
-    if (!state) return
-    router.replace('/account/signin')
+    dialog.confirm({
+      description: 'Are you sure you want to log out?',
+      onOk: () =>
+        setTimeout(() =>
+          router.replace('/account/signin'),
+          500,
+        ),
+    })
   }
 
   return <>
-    {alertContext}
+    {dialogContextHolder}
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
